@@ -42,7 +42,7 @@ class Cliente(models.Model):
     
     
 class Producto(models.Model):
-    idPoducto =  models.CharField(max_length=12, primary_key=True)
+    idProducto =  models.CharField(max_length=12, primary_key=True)
     nombreProducto = models.CharField(max_length=50, blank=False, null=False)
     cantidad = models.CharField(max_length=100)
     precio = models.CharField(max_length=100000)

@@ -12,12 +12,12 @@
     <div>
         
         <h1>Modificar producto</h1>
-        {% if alumno %}
-        <form action="{% url updProducto %}" method="POST">
+        {% if producto %}
+        <form action="{% url 'updProducto'%}" method="POST">
             {% csrf_token %}
             <div class="form-group">
                 <label for="id">Id producto:</label>
-                <input type="text" id="id" name="id" value="{{producto.idProducto}}" required>
+                <input type="text" id="id" name="id" value="{{producto.idProducto}}" required readonly>
             </div>
             <div class="form-group">
                 <label for="nombre">Nombre producto:</label>

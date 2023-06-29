@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import Producto
 def index(request):
     context={}
     return render(request, 'pages/index.html', context)
@@ -20,13 +20,18 @@ def listProducto(request):
     context={}
     return render(request, 'pages/listProducto.html', context)
 
+def suscripcion(request):
+    context = {}
+    return render(request, 'pages/suscripcion.html', context)
+
 def crud(request):
     productos = Producto.objects.all()
     context = {'productos':productos}
     return render(request, 'pages/listProducto.html', context)
 
 def addProducto(request):
-    if request.method is not "POST":
+    if request.method != "POST":
+        context = {}
         return render(request, 'pages/addProducto.html', context)
     else:
         idProducto = request.POST["id"]
@@ -40,8 +45,9 @@ def addProducto(request):
             nombreProducto = nombreProducto,
             cantidad = cantidad,
             precio = precio,
-            estadoProducto = estado
+            estadoProducto = estadoProducto
         )
+        print("Agregado con exito")
         obj.save()
         context = {'mensaje':"Producto añadido"}
         return render (request, 'pages/addProducto.html', context)
@@ -73,23 +79,24 @@ def retModProducto(request,pk):
 
 def updProducto (request):
     if request.method == "POST":
-        idProducto = request.POST["id"]
+        id = request.POST["id"]
         nombreProducto = request.POST["nombre"]
         cantidad = request.POST["cantidad"]
         precio = request.POST["precio"]
         estadoProducto = request.POST["estado"]
 
+        print(f"ID FRONT:  {id}")
         producto = Producto()
         producto.idProducto = id
-        producto.nombreProducto = nombre
+        producto.nombreProducto = nombreProducto
         producto.cantidad = cantidad
         producto.precio = precio
-        producto.estadoProducto = estado
+        producto.estadoProducto = estadoProducto
         producto.save()
 
         context = {'mensaje':"Datos del producto actualizados",'producto':producto}
         return render(request, 'pages/editProducto.html', context)
     else:
         productos = Producto.objects.all()
-        context = {'producto':producto}
+        context = {'productos':productos}
         return render(request,'pages/listProducto.html', context)
